@@ -34,3 +34,10 @@ ENV UMASK=022 RUN_ARIA2=${INSTALL_ARIA2}
 VOLUME /opt/openlist/data/
 EXPOSE 5244 5245
 CMD [ "/entrypoint.sh" ]
+
+# Chạy bằng root để có quyền ghi thư mục data
+USER 0:0
+RUN mkdir -p /opt/openlist/data && chmod -R 0777 /opt/openlist/data
+
+# (đảm bảo expose đúng cổng UI/API của OpenList)
+EXPOSE 5244
